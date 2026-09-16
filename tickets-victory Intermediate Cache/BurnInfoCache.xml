@@ -2,12 +2,36 @@
 <BurnInfoRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<BurnInfo>
 		<BurnInfo>
-			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory.win</FileName>
-			<FileHash>d501fac818d60acd1445263f5178f561</FileHash>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory-125.win</FileName>
+			<FileHash>58c3818233b18a9cdd314d1660665f8b</FileHash>
 		</BurnInfo>
 		<BurnInfo>
-			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory.scar</FileName>
-			<FileHash>7cb5bcc889823b6af9fcb5b38ae0c748</FileHash>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory-150.win</FileName>
+			<FileHash>197329ed47306a51638e2f9ebedc15f2</FileHash>
+		</BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory-200.win</FileName>
+			<FileHash>b4bf111cfdccbc913974260cae61774e</FileHash>
+		</BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory-utils.scar</FileName>
+			<FileHash>6b5e364ce842d95a4a8001f0cc75d396</FileHash>
+		</BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory-core.scar</FileName>
+			<FileHash>dcb84f6ec9993bebab824e949d595f7c</FileHash>
+		</BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory-125.scar</FileName>
+			<FileHash>706d5db8b543a633e21ba50e382e86bd</FileHash>
+		</BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory-150.scar</FileName>
+			<FileHash>eadc866ea9d70cc529f99b43136f1376</FileHash>
+		</BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory-200.scar</FileName>
+			<FileHash>05edf3509fabce45e0e93d95c5929150</FileHash>
 		</BurnInfo>
 		<BurnInfo>
 			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\info\2d678a58c88d4926b4221489390f9650.info</FileName>

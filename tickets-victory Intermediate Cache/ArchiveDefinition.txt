@@ -10,8 +10,14 @@ TOCStart name="data" alias="data" path="" relativeroot="data"
 		Override wildcard=".*\.(smf)$" minsize="-1" maxsize="-1" vt="none" ct="store"
 		Override wildcard=".*\.(bsc)$" minsize="-1" maxsize="-1" vt="none" ct="buffer_compress"
 	FileSettingsEnd
-	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\game\winconditions\tickets-victory.win
-	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\scar\winconditions\tickets-victory.scar
+	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\game\winconditions\tickets-victory-125.win
+	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\game\winconditions\tickets-victory-150.win
+	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\game\winconditions\tickets-victory-200.win
+	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\scar\winconditions\tickets-victory-utils.scar
+	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\scar\winconditions\tickets-victory-core.scar
+	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\scar\winconditions\tickets-victory-125.scar
+	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\scar\winconditions\tickets-victory-150.scar
+	G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\data\scar\winconditions\tickets-victory-200.scar
 TOCEnd
 TOCStart name="info" alias="info" path="" relativeroot="info"
 	FileSettingsStart defverification="crc_blocks" defcompression="stream_compress"
