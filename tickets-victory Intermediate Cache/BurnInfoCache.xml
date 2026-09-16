@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BurnInfoRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory.win</FileName>
+			<FileHash>d501fac818d60acd1445263f5178f561</FileHash>
+		</BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory.scar</FileName>
+			<FileHash>7cb5bcc889823b6af9fcb5b38ae0c748</FileHash>
+		</BurnInfo>
+		<BurnInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\info\2d678a58c88d4926b4221489390f9650.info</FileName>
+			<FileHash>8961b71eb6352987858cbaf52a977fb6</FileHash>
+		</BurnInfo>
+	</BurnInfo>
+	<BurnInfoExtendedInfo>
+		<BurnInfoExtendedInfo>
+			<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\info\tickets-victory.dds</FileName>
+			<FileInfo>
+				<Inputs>
+					<BurnInfo>
+						<FileName>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory.tga</FileName>
+						<FileHash>4999f8023b630c2a5b5b1aa03aac9370</FileHash>
+					</BurnInfo>
+				</Inputs>
+				<Outputs>
+					<string>G:\steam\steamapps\common\Company of Heroes 2\mods\conditions\tickets-victory\tickets-victory Intermediate Cache\Intermediate Files\info\tickets-victory.dds</string>
+				</Outputs>
+				<HashCode>-1286723142</HashCode>
+			</FileInfo>
+		</BurnInfoExtendedInfo>
+	</BurnInfoExtendedInfo>
+</BurnInfoRoot>
