@@ -1,0 +1,2 @@
+FIXED_POP_CAP = 150
+import("WinConditions/tickets-victory-core.scar")

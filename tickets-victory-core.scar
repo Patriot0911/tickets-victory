@@ -1,0 +1,198 @@
+import("ScarUtil.scar")
+import("Fatalities/Fatalities.scar")
+import("WinConditions/tickets-victory-utils.scar")
+
+g_teamVP = {}
+g_startVP = 1000
+g_gameOverHandled = false
+
+function UpdateDisplay()
+	local t1 = g_teamVP[0] or g_startVP
+	local t2 = g_teamVP[1] or g_startVP
+	pcall(function()
+		WinWarning_SetTickers(t1, t2)
+	end)
+end
+
+function WinCondition_GameOver(winningTeam, losingTeam)
+	Rule_RemoveAll()
+
+	World_SetTeamWin(winningTeam)
+
+	local winningPlayers = Team_GetPlayers(winningTeam)
+	local losingPlayers = Team_GetPlayers(losingTeam)
+
+	pcall(function()
+		Fatality_Execute(winningPlayers, losingPlayers)
+	end)
+end
+
+function WinCondition_CheckVP(losingTeam)
+	if g_gameOverHandled then
+		return
+	end
+
+	if g_teamVP[losingTeam] == nil or g_teamVP[losingTeam] > 0 then
+		return
+	end
+
+	g_gameOverHandled = true
+
+	local winningTeam = Team_GetEnemyTeam(losingTeam)
+
+	DebugPrint(
+		"GAME OVER: " .. GetTeamNames(winningTeam) .. " (Team " .. tostring(winningTeam) .. ") wins! "
+		.. GetTeamNames(losingTeam) .. " (Team " .. tostring(losingTeam) .. ") ran out of Victory Points."
+	)
+
+	WinCondition_GameOver(winningTeam, losingTeam)
+end
+
+function CheckAnnihilation()
+	if g_gameOverHandled then
+		return
+	end
+
+	local results = {}
+
+	for i = 1, World_GetPlayerCount() do
+		local player = World_GetPlayerAt(i)
+		local team = Player_GetTeam(player)
+
+		results[team] = results[team] or { annihilation_condition_count = 0 }
+
+		if Player_IsAlive(player) then
+			local entities = Player_GetEntities(player)
+			for entityCount = 1, EGroup_CountSpawned(entities) do
+				local entity = EGroup_GetSpawnedEntityAt(entities, entityCount)
+				if Entity_IsOfType(entity, "annihilation_condition") then
+					results[team].annihilation_condition_count = results[team].annihilation_condition_count + 1
+					break
+				end
+			end
+		end
+	end
+
+	for team, result in pairs(results) do
+		if result.annihilation_condition_count == 0 then
+			g_gameOverHandled = true
+
+			local losingTeam = team
+			local winningTeam = Team_GetEnemyTeam(losingTeam)
+
+			DebugPrint(
+				"GAME OVER: " .. GetTeamNames(winningTeam) .. " (Team " .. tostring(winningTeam) .. ") wins! "
+				.. GetTeamNames(losingTeam) .. " (Team " .. tostring(losingTeam) .. ") has been annihilated."
+			)
+
+			WinCondition_GameOver(winningTeam, losingTeam)
+			return
+		end
+	end
+end
+
+function OnSquadKilled(victim, killer)
+
+	if victim == nil then
+		DebugPrint("victim is nil")
+		return
+	end
+
+	local victimOwner = Util_GetPlayerOwner(victim)
+	local killerOwner = nil
+	if killer ~= nil then
+		killerOwner = Util_GetPlayerOwner(killer)
+	end
+
+	local cost = Squad_Population(victim, CT_Personnel)
+	           + Squad_Population(victim, CT_Vehicle)
+	           + Squad_Population(victim, CT_Medic)
+
+	local squadName = "Unit"
+	pcall(function()
+		local victimBP = Squad_GetBlueprint(victim)
+		local resolvedName = Loc_ToAnsi(BP_GetName(victimBP))
+		if resolvedName ~= nil and resolvedName ~= "" then
+			squadName = resolvedName
+		end
+	end)
+
+	local killerName = GetPlayerName(killerOwner)
+	local victimName = GetPlayerName(victimOwner)
+
+	local msgText = killerName .. " killed " .. victimName .. "'s " .. squadName
+	              .. " (pop cap: " .. tostring(cost) .. ")"
+
+	if isDev then
+		local printOk, printErr = pcall(function()
+			PrintOnScreen(msgText)
+		end)
+
+		if not printOk then
+			DebugPrint("Kill log PrintOnScreen failed: " .. tostring(printErr))
+		end
+
+		local notifyOk, notifyErr = pcall(function()
+			UI_CreateEventCue("", "", "Kill Log", msgText, 6)
+		end)
+
+		if not notifyOk then
+			DebugPrint("Kill log event cue failed: " .. tostring(notifyErr))
+		end
+
+		pcall(function()
+			Game_TextTitleFade(msgText, 0, 4, 1)
+		end)
+	end
+
+	local team = nil
+	if victimOwner ~= nil then
+		team = Player_GetTeam(victimOwner)
+	end
+
+	if team ~= nil and cost > 0 then
+		if g_teamVP[team] == nil then
+			g_teamVP[team] = g_startVP
+		end
+
+		g_teamVP[team] = math.max(g_teamVP[team] - cost, 0)
+		UpdateDisplay()
+
+		DebugPrint("Team " .. tostring(team) .. " Tickets: " .. tostring(g_teamVP[team]))
+
+		WinCondition_CheckVP(team)
+	end
+end
+
+local function WinCondition_Init()
+
+	local startOption = Setup_GetWinConditionOption()
+	if startOption ~= nil and startOption > 0 then
+		g_startVP = startOption
+	end
+
+	for i = 1, World_GetPlayerCount() do
+		local player = World_GetPlayerAt(i)
+		local team = Player_GetTeam(player)
+		g_teamVP[team] = g_startVP
+
+		if FIXED_POP_CAP ~= nil then
+			pcall(function()
+				Player_SetPopCapOverride(player, FIXED_POP_CAP)
+			end)
+		end
+	end
+
+	Rule_AddGlobalEvent(OnSquadKilled, GE_SquadKilled)
+	Rule_AddInterval(CheckAnnihilation, 3)
+
+	pcall(function()
+		WinWarning_SetMaxTickers(g_startVP, g_startVP)
+	end)
+
+	UpdateDisplay()
+
+	DebugPrint("WinCondition_Init done, startVP=" .. tostring(g_startVP) .. ", popCap=" .. tostring(FIXED_POP_CAP))
+end
+
+Scar_AddInit(WinCondition_Init)

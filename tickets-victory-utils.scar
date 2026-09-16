@@ -1,0 +1,63 @@
+isDev = false
+
+function DebugPrint(msg)
+	if not isDev then
+		return
+	end
+
+	pcall(function()
+		PrintOnScreen("[VT] " .. tostring(msg))
+	end)
+
+	pcall(function()
+		UI_CreateEventCue("", "", "[VT debug]", tostring(msg), 5)
+	end)
+
+	pcall(function()
+		Game_TextTitleFade("[VT] " .. tostring(msg), 0, 5, 1)
+	end)
+end
+
+function GetPlayerName(player)
+	if player == nil then
+		return "Unknown"
+	end
+
+	local nameOk, name = pcall(function()
+		local rawName = Player_GetDisplayName(player)
+		if type(rawName) == "table" then
+			return Loc_ToAnsi(rawName)
+		end
+		return rawName
+	end)
+
+	if nameOk and name ~= nil and name ~= "" then
+		return name
+	end
+
+	local idOk, id = pcall(function()
+		return Player_GetID(player)
+	end)
+
+	if idOk and id ~= nil then
+		return "Player " .. tostring(id)
+	end
+
+	return "Unknown"
+end
+
+function GetTeamNames(team)
+	local names = {}
+	pcall(function()
+		local players = Team_GetPlayers(team)
+		for i = 1, table.getn(players) do
+			table.insert(names, GetPlayerName(players[i]))
+		end
+	end)
+
+	if #names == 0 then
+		return "Team " .. tostring(team)
+	end
+
+	return table.concat(names, ", ")
+end

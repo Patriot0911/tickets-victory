@@ -10,7 +10,15 @@
 							<Children>
 								<d2p1:anyType i:type="BurnFile">
 									<BurnSettings i:nil="true" />
-									<RelativeName>tickets-victory.win</RelativeName>
+									<RelativeName>tickets-victory-125.win</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-150.win</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-200.win</RelativeName>
 								</d2p1:anyType>
 							</Children>
 							<IsExpanded>false</IsExpanded>
@@ -26,7 +34,23 @@
 							<Children>
 								<d2p1:anyType i:type="BurnFile">
 									<BurnSettings i:nil="true" />
-									<RelativeName>tickets-victory.scar</RelativeName>
+									<RelativeName>tickets-victory-utils.scar</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-core.scar</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-125.scar</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-150.scar</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-200.scar</RelativeName>
 								</d2p1:anyType>
 							</Children>
 							<IsExpanded>false</IsExpanded>
