@@ -6,6 +6,11 @@ g_teamVP = {}
 g_startVP = 1000
 g_gameOverHandled = false
 
+FATIGUE_DOMINANCE_SHARE = 0.8
+FATIGUE_WEAK_SHARE = 0.1
+FATIGUE_DRAIN_PER_TICK = 1
+FATIGUE_INTERVAL = 5
+
 function UpdateDisplay()
 	local t1 = g_teamVP[0] or g_startVP
 	local t2 = g_teamVP[1] or g_startVP
@@ -99,6 +104,45 @@ function CheckAnnihilation()
 	end
 end
 
+function CheckFatigue()
+	if g_gameOverHandled then
+		return
+	end
+
+	local totalPoints = World_GetNumStrategicPoints()
+	if totalPoints <= 0 then
+		return
+	end
+
+	local teamPoints = {}
+	for i = 1, World_GetPlayerCount() do
+		local player = World_GetPlayerAt(i)
+		local team = Player_GetTeam(player)
+		teamPoints[team] = (teamPoints[team] or 0) + Player_GetNumStrategicPoints(player)
+	end
+
+	for team, points in pairs(teamPoints) do
+		local share = points / totalPoints
+		if share >= FATIGUE_DOMINANCE_SHARE then
+			local weakTeam = Team_GetEnemyTeam(team)
+			local weakShare = (teamPoints[weakTeam] or 0) / totalPoints
+
+			if weakShare <= FATIGUE_WEAK_SHARE then
+				if g_teamVP[weakTeam] == nil then
+					g_teamVP[weakTeam] = g_startVP
+				end
+
+				g_teamVP[weakTeam] = math.max(g_teamVP[weakTeam] - FATIGUE_DRAIN_PER_TICK, 0)
+				UpdateDisplay()
+
+				DebugPrint("Fatigue: Team " .. tostring(weakTeam) .. " Tickets: " .. tostring(g_teamVP[weakTeam]))
+
+				WinCondition_CheckVP(weakTeam)
+			end
+		end
+	end
+end
+
 function OnSquadKilled(victim, killer)
 
 	if victim == nil then
@@ -116,6 +160,13 @@ function OnSquadKilled(victim, killer)
 	           + Squad_Population(victim, CT_Vehicle)
 	           + Squad_Population(victim, CT_Medic)
 
+	local isBotKill = false
+	if killerOwner ~= nil and not Player_IsHuman(killerOwner) then
+		isBotKill = true
+		local multiplier = BOT_KILL_COST_MULTIPLIER or 1.0
+		cost = math.ceil(cost * multiplier)
+	end
+
 	local squadName = "Unit"
 	pcall(function()
 		local victimBP = Squad_GetBlueprint(victim)
@@ -130,6 +181,10 @@ function OnSquadKilled(victim, killer)
 
 	local msgText = killerName .. " killed " .. victimName .. "'s " .. squadName
 	              .. " (pop cap: " .. tostring(cost) .. ")"
+
+	if isBotKill then
+		msgText = msgText .. " [bot kill, discounted]"
+	end
 
 	if isDev then
 		local printOk, printErr = pcall(function()
@@ -193,6 +248,7 @@ local function WinCondition_Init()
 
 	Rule_AddGlobalEvent(OnSquadKilled, GE_SquadKilled)
 	Rule_AddInterval(CheckAnnihilation, 3)
+	Rule_AddInterval(CheckFatigue, FATIGUE_INTERVAL)
 
 	pcall(function()
 		WinWarning_SetMaxTickers(g_startVP, g_startVP)
@@ -200,7 +256,8 @@ local function WinCondition_Init()
 
 	UpdateDisplay()
 
-	DebugPrint("WinCondition_Init done, startVP=" .. tostring(g_startVP) .. ", popCap=" .. tostring(FIXED_POP_CAP))
+	DebugPrint("WinCondition_Init done, startVP=" .. tostring(g_startVP) .. ", popCap=" .. tostring(FIXED_POP_CAP)
+		.. ", botKillMultiplier=" .. tostring(BOT_KILL_COST_MULTIPLIER or 1.0))
 end
 
 Scar_AddInit(WinCondition_Init)

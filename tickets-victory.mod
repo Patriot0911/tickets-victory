@@ -20,6 +20,18 @@
 									<BurnSettings i:nil="true" />
 									<RelativeName>tickets-victory-200.win</RelativeName>
 								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-125-enhanced.win</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-150-enhanced.win</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-200-enhanced.win</RelativeName>
+								</d2p1:anyType>
 							</Children>
 							<IsExpanded>false</IsExpanded>
 							<Name>winconditions</Name>
@@ -51,6 +63,18 @@
 								<d2p1:anyType i:type="BurnFile">
 									<BurnSettings i:nil="true" />
 									<RelativeName>tickets-victory-200.scar</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-125-enhanced.scar</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-150-enhanced.scar</RelativeName>
+								</d2p1:anyType>
+								<d2p1:anyType i:type="BurnFile">
+									<BurnSettings i:nil="true" />
+									<RelativeName>tickets-victory-200-enhanced.scar</RelativeName>
 								</d2p1:anyType>
 							</Children>
 							<IsExpanded>false</IsExpanded>

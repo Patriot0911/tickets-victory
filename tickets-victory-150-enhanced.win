@@ -1,6 +1,6 @@
-name = "tickets-victory-200"
-scar_file = "data:scar/winconditions/tickets-victory-200.scar"
-fe_name = "Tickets Victory (200 Pop)"
+name = "tickets-victory-150-enhanced"
+scar_file = "data:scar/winconditions/tickets-victory-150-enhanced.scar"
+fe_name = "Tickets Victory (150 Pop, Enhanced)"
 fe_priority = 0
 
 score_display = vp_ticker
