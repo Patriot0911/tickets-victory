@@ -160,11 +160,11 @@ function OnSquadKilled(victim, killer)
 	           + Squad_Population(victim, CT_Vehicle)
 	           + Squad_Population(victim, CT_Medic)
 
-	local isBotKill = false
-	if killerOwner ~= nil and not Player_IsHuman(killerOwner) then
-		isBotKill = true
-		local multiplier = BOT_KILL_COST_MULTIPLIER or 1.0
-		cost = math.ceil(cost * multiplier)
+	-- Bot as killer or as victim: multiplier applied once (bot vs bot is not doubled).
+	local isBotInvolved = (killerOwner ~= nil and not Player_IsHuman(killerOwner))
+	                   or (victimOwner ~= nil and not Player_IsHuman(victimOwner))
+	if isBotInvolved then
+		cost = math.floor(cost * (BOT_KILL_COST_MULTIPLIER or 1.0))
 	end
 
 	local squadName = "Unit"
@@ -182,8 +182,8 @@ function OnSquadKilled(victim, killer)
 	local msgText = killerName .. " killed " .. victimName .. "'s " .. squadName
 	              .. " (pop cap: " .. tostring(cost) .. ")"
 
-	if isBotKill then
-		msgText = msgText .. " [bot kill, discounted]"
+	if isBotInvolved then
+		msgText = msgText .. " [bot involved, discounted]"
 	end
 
 	if isDev then
